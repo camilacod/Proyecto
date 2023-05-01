@@ -1,0 +1,185 @@
+## DATABASE
+
+1. User
+    - id: Integer
+    - username: String
+    - email: String
+    - password: String
+    - created_at: Timestamp
+2. Hotel
+    - id: Integer
+    - name: String
+    - address: String
+    - city: String
+    - rating: Decimal
+    - created_at: Timestamp
+3. Room
+    - id: Integer
+    - hotel_id: Integer
+    - room_number: Integer
+    - room_type: Enum ('single', 'double', 'suite')
+    - price: Decimal
+    - availability: Boolean
+4. Reservation
+    - id: Integer
+    - user_id: Integer
+    - room_id: Integer
+    - check_in: Date
+    - check_out: Date
+    - created_at: Timestamp
+5. Comment
+    - id: Integer
+    - user_id: Integer
+    - hotel_id: Integer
+    - comment: Text
+    - rating: Decimal
+    - created_at: Timestamp
+6. HotelImage
+    - id: Integer
+    - hotel_id: Integer
+    - image_url: String
+
+Relationships:
+
+1. User --< Reservation
+    - One User can have many Reservations
+2. User --< Comment
+    - One User can have many Comments
+3. Hotel --< Room
+    - One Hotel can have many Rooms
+4. Hotel --< Comment
+    - One Hotel can have many Comments
+5. Hotel --< HotelImage
+    - One Hotel can have many HotelImages
+6. Room --< Reservation
+    - One Room can have many Reservations
+
+-----
+
+sql
+----
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE hotels (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    rating DECIMAL(3, 2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE rooms (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    hotel_id INT NOT NULL,
+    room_number INT NOT NULL,
+    room_type ENUM('single', 'double', 'suite') NOT NULL,
+    price DECIMAL(7, 2) NOT NULL,
+    availability BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (hotel_id) REFERENCES hotels(id),
+    UNIQUE KEY (hotel_id, room_number)
+);
+CREATE TABLE reservations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    room_id INT NOT NULL,
+    check_in DATE NOT NULL,
+    check_out DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (room_id) REFERENCES rooms(id)
+);
+CREATE TABLE hotel_images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    hotel_id INT NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
+    FOREIGN KEY (hotel_id) REFERENCES hotels(id)
+);
+CREATE TABLE comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    hotel_id INT NOT NULL,
+    comment TEXT NOT NULL,
+    rating DECIMAL(3, 2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (hotel_id) REFERENCES hotels(id)
+);
+----
+DUMMY DATA:
+INSERT INTO users (username, email, password) VALUES
+('john_doe', 'john.doe@example.com', 'password123'),
+('jane_smith', 'jane.smith@example.com', 'password456'),
+('michael_brown', 'michael.brown@example.com', 'password789'),
+('emily_white', 'emily.white@example.com', 'password000');
+
+INSERT INTO hotels (name, address, city, rating) VALUES
+('Grand Hotel', '123 Main Street', 'New York', 4.5),
+('Paradise Resort', '456 Beach Boulevard', 'Miami', 4.7),
+('Mountain Lodge', '789 Forest Road', 'Denver', 4.3),
+('City Center Inn', '321 Central Avenue', 'Los Angeles', 3.8);
+
+
+INSERT INTO rooms (hotel_id, room_number, room_type, price) VALUES
+(1, 101, 'single', 120.00),
+(1, 102, 'single', 120.00),
+(1, 103, 'double', 150.00),
+(1, 104, 'suite', 250.00),
+(2, 201, 'single', 110.00),
+(2, 202, 'single', 110.00),
+(2, 203, 'double', 140.00),
+(2, 204, 'suite', 240.00),
+(3, 301, 'single', 100.00),
+(3, 302, 'single', 100.00),
+(3, 303, 'double', 130.00),
+(3, 304, 'suite', 230.00),
+(4, 401, 'single', 90.00),
+(4, 402, 'single', 90.00),
+(4, 403, 'double', 120.00),
+(4, 404, 'suite', 220.00);
+
+INSERT INTO reservations (user_id, room_id, check_in, check_out) VALUES
+(1, 1, '2023-06-01', '2023-06-03'),
+(1, 5, '2023-07-10', '2023-07-15'),
+(2, 2, '2023-06-15', '2023-06-18'),
+(2, 9, '2023-08-01', '2023-08-07'),
+(3, 3, '2023-05-20', '2023-05-23'),
+(3, 13, '2023-10-01', '2023-10-05'),
+(4, 4, '2023-07-01', '2023-07-04'),
+(4, 16, '2023-09-10', '2023-09-15'),
+(1, 6, '2023-11-20', '2023-11-25'),
+(1, 12, '2023-12-10', '2023-12-15'),
+(2, 7, '2023-08-01', '2023-08-07'),
+(2, 10, '2023-10-15', '2023-10-18'),
+(3, 8, '2023-09-20', '2023-09-23'),
+(3, 14, '2023-10-10', '2023-10-15'),
+(4, 15, '2023-11-01', '2023-11-05'),
+(4, 11, '2023-12-20', '2023-12-25'),
+(1, 16, '2023-05-15', '2023-05-18'),
+(2, 13, '2023-06-10', '2023-06-12'),
+(3, 10, '2023-07-20', '2023-07-25'),
+(4, 9, '2023-08-15', '2023-08-20');
+
+INSERT INTO comments (user_id, hotel_id, comment, rating) VALUES
+(1, 1, 'Great hotel, loved the location!', 4.5),
+(2, 2, 'Amazing resort, perfect for a beach vacation!', 5.0),
+(3, 3, 'Nice lodge, very cozy and comfortable.', 4.0),
+(4, 4, 'Good value for the price, decent location.', 3.5),
+(1, 2, 'The beach was fantastic and the staff was friendly.', 4.7),
+(2, 1, 'Excellent service and beautiful rooms.', 4.9),
+(3, 4, 'Affordable option, clean rooms.', 3.8),
+(4, 3, 'Great place for a mountain retreat.', 4.2);
+INSERT INTO hotel_images (hotel_id, image_url) VALUES
+(1, 'https://example.com/hotel_images/grand_hotel_1.jpg'),
+(1, 'https://example.com/hotel_images/grand_hotel_2.jpg'),
+(2, 'https://example.com/hotel_images/paradise_resort_1.jpg'),
+(2, 'https://example.com/hotel_images/paradise_resort_2.jpg'),
+(3, 'https://example.com/hotel_images/mountain_lodge_1.jpg'),
+(3, 'https://example.com/hotel_images/mountain_lodge_2.jpg'),
+(4, 'https://example.com/hotel_images/city_center_inn_1.jpg'),
+(4, 'https://example.com/hotel_images/city_center_inn_2.jpg');
