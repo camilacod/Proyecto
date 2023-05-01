@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Reservation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Hotel Reservation</h1>
+    <p><a href="login.html">Login</a> / <a href="register.html">Register</a></p>
+
+    <form id="search-form">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+        <br>
+        <label for="checkin">Check-in:</label>
+        <input type="date" id="checkin" name="checkin" required>
+        <br>
+        <label for="checkout">Check-out:</label>
+        <input type="date" id="checkout" name="checkout" required>
+        <br>
+        <label for="room_type">Room Type:</label>
+        <select id="room_type" name="room_type" required>
+            <option value="single">Single</option>
+            <option value="double">Double</option>
+            <option value="suite">Suite</option>
+        </select>
+        <br>
+        <button type="submit">Search</button>
+    </form>
+    <script src="main.js"></script>
+</body>
+</html>

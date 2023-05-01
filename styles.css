@@ -1,0 +1,130 @@
+/* Center and style the title */
+h1 {
+    text-align: center;
+    color: #0059b3; /* Change to the shade of blue you want */
+  }
+  
+
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label, input, select, button {
+    margin-top: 10px;
+}
+
+/* Button styles */
+button {
+    background-color: #E10841;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #BF0645;
+}
+
+/* Form styles */
+#search-form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#search-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #002D62;
+}
+
+#search-form input,
+#search-form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 2px solid #C8C8C8;
+}
+
+#search-form input:focus,
+#search-form select:focus {
+    outline: none;
+    border-color: #E10841;
+}
+
+#search-form select {
+    background-color: #F2F2F2;
+}
+
+#search-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #E10841;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#search-form button:hover {
+    background-color: #BF0645;
+}
+
+
+
+/* Booking form styles */
+#booking-form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#booking-form form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+#booking-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#booking-form input,
+#booking-form select {
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+}
+
+#booking-form button {
+    grid-column: span 2;
+    padding: 10px;
+    background-color: #1d7fe0;
+    color: white;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+}
+
+#booking-form button:hover {
+    background-color: #155ca6;
+}

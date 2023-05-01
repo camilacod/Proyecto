@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - Hotel Reservation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="booking-form">
+        <h2>Booking</h2>
+        <form id="booking-form-element">
+
+            <!-- Hotel ID will be passed through URL parameter -->
+            <input type="hidden" id="hotel-id">
+            
+            <!-- Room type selection -->
+            <label for="room-type">Room Type:</label>
+            <select id="room-type" required>
+                <!-- Room type options will be populated from the database -->
+            </select>
+
+            <!-- Check-in and check-out dates -->
+            <label for="check-in-date">Check-in:</label>
+            <input type="date" id="check-in-date" required>
+
+            <label for="check-out-date">Check-out:</label>
+            <input type="date" id="check-out-date" required>
+
+            <!-- Personal information -->
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+
+
+
+            <!-- Submit button -->
+            <button type="submit">Book Now</button>
+        </form>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
